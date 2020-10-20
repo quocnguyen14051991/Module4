@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+
+<iframe id="img-of-the-day"></iframe>
+<br>
+<script>
+    let query = 'https://api.nasa.gov/planetary/apod?api_key=yZs1XMGdLKI4J0zorJH8Bjf3Qggf6A26mZNMujaI';
+    let request = new XMLHttpRequest();
+    request.open('GET', query);
+    request.onload = function () {
+        if (request.status === 200) {
+            let response = JSON.parse(request.responseText);
+            document.getElementById('img-of-the-day').setAttribute('src', response.url);
+        }
+    };
+    request.send();
+</script>
+<form th:action="@{/create}" method="post" th:object="${comment}">
+    <input type="number" max="5" min="1" th:field="*{mark}">
+    <div class="author">
+        <label>Author:</label>
+        <br>
+        <input type="text" th:field="*{author}">
+    </div>
+    <div class="feed-back">
+        <label>FeedBack:</label>
+        <br>
+        <textarea rows="4" cols="50" th:field="*{feedBack}">
+</textarea>
+    </div>
+    <div>
+        <input type="submit" value="Comment">
+    </div>
+</form>
+<div class="fr">
+<th:block th:each="comment,state : ${commentList}">
+    <div class="sub" th:data-mark="${comment.mark}">
+    <tr>
+        <hr>
+        + <label th:name="label" th:text="${comment.mark}"></label>
+        <label th:name="feedBack" th:text="${comment.feedBack}"></label>
+        <br>
+        <label  th:text="${comment.mark}" ></label> likes
+        <input type="submit" value="like" id="submitLike" >
+    </tr>
+    </div>
+</th:block>
+</div>
+
+<script>
+    var postBoxes = document.querySelectorAll('.sub')
+    postBoxes.forEach(function(postBox) {
+
+        postBox.addEventListener('click', function() {
+            var postId = this.getAttribute('data-mark')
+            alert(postId);
+        })
+    });
+
+    $.ajax({
+        url: "${pageContext.request.contextPath}/set",
+        type: "post",
+        dataType: 'text',
+        data: {
+            postId: postId,
+        },
+        success: function (result) {
+            alert("success")
+
+        },
+        error: function (result) {
+
+            alert("loi");
+        }
+    });
+
+</script>
+</body>
+</html>
