@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table border="1" style="border-collapse: collapse;">
+    <h1>List Block Manager</h1>
+    <h2><a href="/create">create New Block</a></h2>
+    <tr>
+        <th>id</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Author</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="row: ${blockList}">
+        <tr>
+            <td th:text="${row.id}"></td>
+            <td th:text="${row.title}"></td>
+            <td th:text="${row.content}"></td>
+            <td th:text="${row.author}"></td>
+            <td><a th:href="@{edit/{id}(id=${row.id})}">Edit</a></td>
+            <td><a th:href="@{delete/{id}(id=${row.id})}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

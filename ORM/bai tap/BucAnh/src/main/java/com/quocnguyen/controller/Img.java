@@ -31,9 +31,9 @@ public class Img {
         redirectAttributes.addFlashAttribute("create is ok","create ok");
         return "redirect:/home";
     }
-    @PostMapping("/set")
-    public String setLike(Model model){
-
-        
-    }
+//    @PostMapping("/set")
+//    public String setLike(Model model){
+//
+//
+//    }
 }

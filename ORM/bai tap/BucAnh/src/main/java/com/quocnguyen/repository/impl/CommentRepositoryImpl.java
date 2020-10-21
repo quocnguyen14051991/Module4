@@ -15,6 +15,7 @@ public class CommentRepositoryImpl implements CommentRepository {
         TypedQuery<Comment> typedQuery = BaseRepository.entityManager.createQuery("select c from comment c", Comment.class);
 
         return typedQuery.getResultList();
+//        BaseRepository.entityManager.createNativeQuery("select * ,DATE_FORMAT(ts,'%Y-%m-%d') from comment where DATE(ts)=CURDATE()")
 //        TypedQuery typedQuery1 =BaseRepository.entityManager.createQuery("select * from comment");
 //        BaseRepository.entityManager.createQuery("select * ,DATE_FORMAT(ts,'%Y-%m-%d') from comment where DATE(ts)=CURDATE()");
         //select c,DATE_FORMAT(c.ts,'%Y-%m-%d') from comment c where DATE(c.ts) = ?",Comment.class
