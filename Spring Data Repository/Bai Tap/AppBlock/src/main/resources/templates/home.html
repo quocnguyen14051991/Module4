@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+</head>
+<body>
+<nav th:replace="layout :: header"></nav>
+<div class="container main-content form">
+    <h1>Blog Tâm Sự Tuổi Mới Lớn </h1>
+    <th:block th:each="row : ${digitalPage}" >
+       <p th:text="${row.category.getNameCategory()}"></p>
+    <div class="row">
+        <div class="col-4">
+            <img th:src="${row.image}" alt="" th:width="300px" th:height="200px" >
+        </div>
+        <div class="col-4">
+            <p>Tiêu Đề :</p>
+            <a href="https://vndoc.com/loi-bai-hat-nhu-ngay-hom-qua-son-tung/download" th:href="@{detail/{id}/detailDigital(id=${row.idDigital})}"  th:text="${row.title}"></a>
+        </div>
+        <div class="col-2">
+            <p>Tác Giả :</p><p th:text="${row.author}"></p>
+        </div>
+       <div class="col-2">
+          <p>Ngày Xuất Bản :</p> <p th:text="${row.timePost}"></p>
+       </div>
+    </div>
+    </th:block>
+</div><!-- /.container -->
+<footer th:replace="layout :: footer">
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>List Customer</h1>
+<form action="/listCustomer">
+    <input type="text" name="keyword" th:value="${keywordOld}" />
+    <input type="submit" value="Search" />
+</form>
+<table border="1" style="border-collapse: collapse">
+    <tr>
+        <th>first name</th>
+        <th>last name</th>
+        <th>Email</th>
+        <th>address</th>
+    </tr>
+<th:block th:each="row: ${listCustomer}">
+    <tr>
+        <td th:text="${row.firstName}"></td>
+        <td th:text="${row.lastName}"></td>
+        <td th:text="${row.email}"></td>
+        <td th:text="${row.address}"></td>
+    </tr>
+</th:block>
+</table>
+<div>
+    <a th:if="${listCustomer.hasPrevious()}" th:href="@{/listCustomer(page = ${listCustomer.number - 1})}">Previous</a>
+    <span th:text="${listCustomer.number + 1}"></span>/<span th:text="${listCustomer.totalPages}"></span>
+    <a th:if="${listCustomer.hasNext()}"  th:href="@{/listCustomer(page = ${listCustomer.number + 1})}">next</a>
+</div>
+</body>
+</html>

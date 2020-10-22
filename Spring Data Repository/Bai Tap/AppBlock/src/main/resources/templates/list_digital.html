@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<nav th:replace="layout :: header"></nav>
+
+<div class="container main-content list">
+    <div class="row">
+
+        <a th:href="@{/createDigital}" class="btn btn-success pull-left">
+            <span class="glyphicon glyphicon-plus"></span> Add new Digital
+        </a>
+        <form class=" form-inline pull-right" action="/category/search" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control"
+                       name="keyword"
+                       th:value="${keyword}"
+                       placeholder="Type Category name..."/>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+    </div>
+    <!--    <th:block th:if="${#lists.isEmpty(employees.pageList)}">-->
+    <!--        <h3>No employee</h3>-->
+    <!--    </th:block>-->
+
+
+    <nav class="row justify-content-center wow fadeIn"
+         data-wow-delay="0.2s">
+        <div class="row">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Short Description</th>
+                    <th>Time Post</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="digital,iterStat : ${digitalPage}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td th:text="${digital.author}"></td>
+                    <td th:text="${digital.description}"></td>
+                    <td th:text="${digital.image}"></td>
+                    <td th:text="${digital.shortDes}"></td>
+                    <td th:text="${digital.timePost}"></td>
+                    <td th:text="${digital.title}"></td>
+                    <td th:text="${digital.category.nameCategory}"></td>
+                    <td><a class="edit" th:href="@{/digital/{id}/edit(id=${digital.idDigital})}">
+                        <i title="Edit" class="material-icons">&#xE254;</i> </a></td>
+                    <td><a class="delete" th:href="@{/digital/{id}/delete(id=${digital.idDigital})}">
+                        <i title="Delete" class="material-icons">&#xE872;</i> </a></td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="pagination">
+                <li class="page-item disabled"><a href="#">Previous</a></li>
+                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
+        </div>
+
+    </nav>
+
+</div>
+
+<!-- /.container -->
+
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
