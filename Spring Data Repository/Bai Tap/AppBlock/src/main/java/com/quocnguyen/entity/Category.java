@@ -1,14 +1,18 @@
 package com.quocnguyen.entity;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "category_blog")
-public class Category {
+public class Category implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCategory;
     private String nameCategory;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Digital> digitalList;
 
@@ -42,5 +46,18 @@ public class Category {
 
     public void setDigitalList(List<Digital> digitalList) {
         this.digitalList = digitalList;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        Category category = (Category) target;
+        if (category.nameCategory.equals("")) {
+            errors.rejectValue("nameCategory", "name.empty");
+        }
     }
 }
