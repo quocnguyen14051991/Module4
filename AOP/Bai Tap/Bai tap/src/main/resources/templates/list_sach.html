@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>List Đầu Sách</h1>
+<table border="1 solid black" style="border-collapse: collapse">
+    <tr>
+        <th>Tên Sách</th>
+        <th>Mã Mượn</th>
+        <th>Số Lượng</th>
+        <th>Mượn Sách</th>
+        <th>Trả Sách Sách</th>
+    </tr>
+
+    <th:block th:each="row:${sachList}">
+        <tr>
+            <td th:text="${row.tenSach}">
+            </td>
+            <td th:text="${row.maMuon}"></td>
+            <td th:text="${row.soLuong}"></td>
+            <td><a th:href="@{/muonsach/{id}(id=${row.id})}">Mượn Sách</a></td>
+            <td><a th:href="@{/trasach/{id}(id=${row.id})}">Trả Sách </a></td>
+        </tr>
+    </th:block>
+
+</table>
+</body>
+</html>
