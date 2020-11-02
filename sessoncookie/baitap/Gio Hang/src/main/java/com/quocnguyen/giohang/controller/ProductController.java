@@ -34,4 +34,9 @@ public class ProductController {
     public String cart(){
         return "cart";
     }
+    @GetMapping("/checklogin")
+    public String checkLogin(Model model){
+
+        return "login";
+    }
 }
