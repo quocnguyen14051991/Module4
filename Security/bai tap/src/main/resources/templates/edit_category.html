@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+</head>
+<body>
+<nav th:replace="layout :: header"></nav>
+<div class="container main-content form">
+    <h4 style="text-align: center">Edit Category</h4>
+    <div class="row" >
+        <div class="col-4"></div>
+        <div class="col-4">
+            <form method="post" action="/category/edit" th:object="${category}">
+                <input type="hidden" th:field="*{idCategory}">
+                <div class="form-group">
+                    <label for="InputNameCategory">Name Category</label>
+                    <input th:field="*{nameCategory}"  type="text" class="form-control" id="InputNameCategory" aria-describedby="emailHelp">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div><!-- /.container -->
+<footer th:replace="layout :: footer">
+
+</footer>
+</body>
+</html>

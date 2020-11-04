@@ -1,0 +1,5 @@
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+
+    <div sec:authorize="isAuthenticated()">
+        <span sec:authentication="principal.username"></span>
+    </div>
