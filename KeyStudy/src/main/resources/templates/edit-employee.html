@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head" th:title="Employee">
+    <title>edit-employee</title>
+
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:replace="layout::header"></header>
+<div class="container my-5">
+    <h3> Edit Employee</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-lg-10">
+                <form action="#" th:action="@{/employees/edit}" th:object="${employee}" method="post">
+                    <div class="row">
+                        <input type="hidden" id="id" th:field="*{employeeId}">
+
+                        <div class="form-group col-md-8">
+                            <label for="name-employee" class="col-form-label">Employee Name</label>
+                            <input type="text" th:field="*{employeeName}" class="form-control"
+                                   id="name-employee" placeholder="Name Employee" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="address" class="col-form-label">Address</label>
+                            <input type="text" th:field="*{employeeAddress}" class="form-control"
+                                   id="address" placeholder="Address Employee" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="birth-day" class="col-form-label">Birth Day Employee</label>
+                            <input type="date" th:field="*{employeeBirthday}" class="form-control"
+                                   id="birth-day" placeholder="Birth Day Customer" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="email-customer" class="col-form-label">Email </label>
+                            <input type="text" th:field="*{employeeEmail}" class="form-control"
+                                   id="email-customer" placeholder="Email Customer" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="Id-Card" class="col-form-label">Id Card Employee</label>
+                            <input type="text" th:field="*{employeeIDCard}" class="form-control"
+                                   id="Id-Card" placeholder="Id card Employee" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="phone" class="col-form-label"> Employee Phone</label>
+                            <input type="text" th:field="*{employeePhone}" class="form-control"
+                                   id="phone" placeholder="Phone Employee" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="division-customer" class="col-form-label">Division</label>
+                            <select th:field="*{division}"  name="division"  class="form-control" id="division-customer" >
+                                <th:block th:each="row:${divisions}">
+                                    <option th:value="${row.divisionId}" th:text="${row.divisionName}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="education-degree" class="col-form-label">Education Degree</label>
+                            <select th:field="*{educationDegree}"  name="division"  class="form-control" id="education-degree" >
+                                <th:block th:each="row:${educationDegrees}">
+                                    <option th:value="${row.idEducationDegree}" th:text="${row.educationDegreeName}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="position-degree" class="col-form-label">Position</label>
+                            <select th:field="*{position}"  name="division"  class="form-control" id="position-degree" >
+                                <th:block th:each="row:${positions}">
+                                    <option th:value="${row.idPosition}" th:text="${row.namePosition}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="layout::footer"></footer>
+</body>
+</html>

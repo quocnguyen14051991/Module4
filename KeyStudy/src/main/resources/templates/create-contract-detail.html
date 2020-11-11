@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head" th:title="Employee">
+    <title>creatCustomer</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:replace="layout::header">
+</header>
+<h3 style="text-align: center">Add new Contract - Detail</h3>
+<div class="container">
+    <form th:action="@{/contractsDetails/create}" th:object="${contractDetail}" method="post">
+        <div class="row">
+
+            <div class="form-group col-lg-8">
+                <label for="quantity" class="col-form-label">Quantity</label>
+                <input type="text" th:field="*{quantity}" class="form-control"
+                       id="quantity" placeholder="Contract Deposit"/>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="attach-service" class="col-form-label">Attach Service</label>
+                <select class="form-control" name="typeCustomer" id="attach-service" th:field="*{attachService}">
+                    <th:block th:each="row: ${attachServices}">
+                        <option th:name="type-employee" th:value="${row.attachServiceId}" th:text="${row.attachServiceName}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="contract-service" class="col-form-label">Contract </label>
+                <select class="form-control" name="typeCustomer" id="contract-service" th:field="*{contract}">
+                    <th:block th:each="row , stt: ${contracts}">
+                        <option th:name="contract-service" th:value="${row.contractId}" th:text="${stt.index}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <input type="submit" class="btn btn-primary" value=" Submit ">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<footer th:replace="layout::footer">
+</footer>
+</body>
+</html>

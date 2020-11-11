@@ -71,4 +71,5 @@ public class BlogController {
         }
         return "list_category";
     }
+
 }

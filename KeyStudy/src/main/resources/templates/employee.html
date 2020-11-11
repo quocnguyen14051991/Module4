@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head" th:title="Employee">
+    <title>Employee</title>
+
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:replace="layout::header">
+</header>
+
+<div class="container">
+    <div th:switch="${employees}" class="container-fullwidth">
+        <p class="my-5">
+            <a th:href="@{/employees/create}" class="btn btn-primary">
+                <i class="fas fa-user-plus ml-2"> Add Employee </i></a>
+        </p>
+        <div class="table-responsive-lg">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <h2 th:case="null">No record found !!</h2>
+                        <div class="col-lg-6"><h2>Employee <b>Details</b></h2></div>
+                        <div class="col-lg-6">
+                            <!--                        <div style="margin-left: 10px"  class="search-box">-->
+                            <!--                            <i class="material-icons">&#xE8B6;</i>-->
+                            <!--                            <input  type="text" class="form-control" placeholder="Search&hellip;">-->
+                            <!--                        </div>-->
+                            <form th:action="@{/employees}" method="get">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <input th:name="text" type="text" class="form-control" placeholder="search"
+                                               th:value="${keywordOld}">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>  Id</th>
+                        <th>  Name</th>
+                        <th> Birth-Day</th>
+                        <th>  Email</th>
+                        <th>  Address</th>
+                        <th>Id Card</th>
+                        <th> Phone</th>
+                        <th> Salary</th>
+                        <th> Division</th>
+                        <th>Education Degree</th>
+                        <th> Position</th>
+<!--                        <th>Username</th>-->
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employee,iState:${employees}">
+                        <td th:text="${iState.index+1}"></td>
+                        <td th:text="${employee.employeeId}"></td>
+                        <td th:text="${employee.employeeName}"></td>
+                        <td th:text="${employee.employeeBirthday}"></td>
+                        <td th:text="${employee.employeeEmail}"></td>
+                        <td th:text="${employee.employeeAddress}"></td>
+                        <td th:text="${employee.employeeIDCard}"></td>
+                        <td th:text="${employee.employeePhone}"></td>
+                        <td th:text="${employee.employeeSalary}"></td>
+                        <td th:text="${employee.getDivision().getDivisionName()}"></td>
+                        <td th:text="${employee.getEducationDegree().getEducationDegreeName()}"></td>
+                        <td th:text="${employee.getPosition().getNamePosition()}"></td>
+                        <td>
+                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                            <a th:href="@{/employees/edit/{id}(id=${employee.employeeId})}" class="edit" title="Edit"
+                               data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a th:href="@{/employees/delete/{id}(id=${employee.employeeId})}" class="delete"
+                               title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a th:if="${employees.hasPrevious()}" th:href="@{/employees(page=${employees.number - 1},text=${keywordOld})}"><i class="fa fa-angle-double-left"></i></a></li>
+
+                        <th:block th:each="i: ${#numbers.sequence(0, employees.totalPages - 1)}">
+                            <li class="page-item"><a th:href="@{/employees(page=${i},text=${keywordOld})}" th:text="${i+1}" class="page-link"></a></li>
+                        </th:block>
+
+                        <li class="page-item"><a th:if="${employees.hasNext()}" th:href="@{/employees(page=${employees.number + 1},text=${keywordOld})}" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout::footer">
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head" th:title="Employee">
+    <title>creatCustomer</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:replace="layout::header">
+</header>
+<h3 style="text-align: center">Add new Contract</h3>
+<div class="container">
+    <form th:action="@{/contracts/create}" th:object="${contract}" method="post">
+        <div class="row">
+<!--            <div class="form-group col-lg-8">-->
+<!--                <label for="id" class="col-form-label">Id Contract</label>-->
+<!--                <input type="text" th:field="*{contractId}" class="form-control"-->
+<!--                       id="id" placeholder="Id Contract"/>-->
+<!--            </div>-->
+
+            <div class="form-group col-lg-8">
+                <label for="contract-deposit" class="col-form-label">Contract Deposit</label>
+                <input type="text" th:field="*{contractDeposit}" class="form-control"
+                       id="contract-deposit" placeholder="Contract Deposit"/>
+            </div>
+
+
+
+            <div class="form-group col-lg-8">
+                <label for="address" class="col-form-label"> Contract Start Date </label>
+                <input type="date" th:field="*{contractStartDate}" class="form-control"
+                       id="address" placeholder="Contract Start Date"/>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="birthday" class="col-form-label">Contract End Date</label>
+                <input type="date" th:field="*{contractEndDate}" class="form-control"
+                       id="birthday" placeholder="Birth Day"/>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="contract-total" class="col-form-label">Total Money</label>
+                <input type="text" th:field="*{contractTotalMoney}" class="form-control"
+                       id="contract-total" placeholder="Total Money"/>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="customer-contract" class="col-form-label">Customer Name</label>
+                <select class="form-control" name="typeCustomer" id="customer-contract" th:field="*{customer}">
+                    <th:block th:each="row: ${customers}">
+                        <option th:name="type-customer" th:value="${row.customer_id}" th:text="${row.customerName}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="type-customer" class="col-form-label">Employee Name</label>
+                <select class="form-control" name="typeCustomer" id="type-customer" th:field="*{employee}">
+                    <th:block th:each="row: ${employees}">
+                        <option th:name="type-employee" th:value="${row.employeeId}" th:text="${row.employeeName}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="service-contract" class="col-form-label">Service Name</label>
+                <select class="form-control" name="typeCustomer" id="service-contract" th:field="*{service}" >
+                    <th:block th:each="row: ${serviceFuramas}">
+                        <option th:name="type-employee" th:value="${row.serviceId}" th:text="${row.serviceName}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <input type="submit" class="btn btn-primary" value=" Submit ">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<footer th:replace="layout::footer">
+</footer>
+</body>
+</html>

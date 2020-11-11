@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head">
+    <meta charset="UTF-8">
+    <title>Customer</title>
+</head>
+<body>
+<!--header-->
+<header th:replace="layout::header"></header>
+<!-- end header-->
+
+<div class="container">
+    <div th:switch="${customers}" class="container-fullwidth">
+        <p class="my-5">
+            <a th:href="@{/customers/create}" class="btn btn-primary">
+                <i class="fas fa-user-plus ml-2"> Add Customer </i></a>
+        </p>
+    <div class="table-responsive-lg">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <h2 th:case="null">No record found !!</h2>
+                    <div class="col-lg-6"><h2>Customer <b>Details</b></h2></div>
+                    <div class="col-lg-6">
+<!--                        <div style="margin-left: 10px"  class="search-box">-->
+<!--                            <i class="material-icons">&#xE8B6;</i>-->
+<!--                            <input  type="text" class="form-control" placeholder="Search&hellip;">-->
+<!--                        </div>-->
+                        <form th:action="@{/customers}" method="get">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <input th:name="text" type="text"  class="form-control" placeholder="search" th:value="${keywordOld}">
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="submit" value="Search">
+                            </div>
+                        </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Id Customer </th>
+                    <th>Name</th>
+                    <th>Gender </th>
+                    <th>Address</th>
+                    <th>Birth Day </th>
+                    <th>Email</th>
+                    <th>Id Card Customer</th>
+                    <th>Phone Number</th>
+                    <th>Type Customer</th>
+                    <th>Action </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="customer,iState:${customers}">
+                    <td th:text="${iState.index+1}"></td>
+                    <td th:text="${customer.customer_id}"></td>
+                    <td th:text="${customer.customerName}"></td>
+                    <td>
+                        <span th:if="${customer.customerGender} == 0" th:text="Male" />
+                        <span th:if="${customer.customerGender} == 1" th:text="Female" />
+                        <span th:if="${customer.customerGender} == 2" th:text="Bisexual" />
+                    </td>
+                    <td th:text="${customer.customerAddress}"></td>
+                    <td th:text="${customer.customerBirthday}"></td>
+                    <td th:text="${customer.customerEmail}"></td>
+                    <td th:text="${customer.customerIdCard}"></td>
+                    <td th:text="${customer.customerPhone}"></td>
+                    <td th:text="${customer.getCustomerType().getCustomerTypeName()}"></td>
+                    <td>
+                        <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                        <a th:href="@{/customers/edit/{id}(id=${customer.customer_id})}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a th:href="@{/customers/delete/{id}(id=${customer.customer_id})}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item disabled"><a th:if="${customers.hasPrevious()}" th:href="@{/customers(page=${customers.number - 1},text=${keywordOld})}"><i class="fa fa-angle-double-left"></i></a></li>
+
+                    <th:block th:each="i: ${#numbers.sequence(0, customers.totalPages - 1)}">
+                        <li class="page-item"><a th:href="@{/customers(page=${i},text=${keywordOld})}" th:text="${i+1}" class="page-link"></a></li>
+                    </th:block>
+
+                    <li class="page-item"><a th:if="${customers.hasNext()}" th:href="@{/customers(page=${customers.number + 1},text=${keywordOld})}" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<!--<div class="container my-1">-->
+<!--    <div class="card">-->
+<!--        <div class="card-body">-->
+<!--            <div th:switch="${customers}" class="container-fullwidth">-->
+<!--                <p class="my-5">-->
+<!--                    <a href="/edit" class="btn btn-primary">-->
+<!--                        <i class="fas fa-user-plus ml-2"> Add Customer </i></a>-->
+<!--                </p>-->
+<!--                <div class="col-lg-11">-->
+<!--                    <h2 th:case="null">No record found !!</h2>-->
+<!--                    <h1>Customer Details</h1>-->
+<!--                    <div th:case="*">-->
+<!--                        <table class="table table-striped table-responsive-lg">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                               <th> Id Customer</th>-->
+<!--                               <th> Name</th>-->
+<!--                               <th>Gender</th>-->
+<!--                               <th>Address</th>-->
+<!--                               <th>Birth Day</th>-->
+<!--                               <th>Email</th>-->
+<!--                               <th>Id Card</th>-->
+<!--                               <th>Phone Number</th>-->
+<!--                                <th>Edit</th>-->
+<!--                                <th>Delete</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr th:each="customer : ${customers}">-->
+<!--                                <td th:text="${customer.customer_id}"></td>-->
+<!--                                <td th:text="${customer.customerName}"></td>-->
+<!--                                <td th:text="${customer.customerGender}"></td>-->
+<!--                                <td th:text="${customer.customerAddress}"></td>-->
+<!--                                <td th:text="${customer.customerBirthday}"></td>-->
+<!--                                <td th:text="${customer.customerEmail}"></td>-->
+<!--                                <td th:text="${customer.customerIdCard}"></td>-->
+<!--                                <td th:text="${customer.customerPhone}"></td>-->
+<!--                                <td>-->
+<!--                                    <a th:href="@{/edit/{id}(id=${customer.customer_id})}" class="btn btn-primary">-->
+<!--                                        <i class="material-icons">&#xE254;</i>-->
+<!--                                    </a>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <a th:href="@{/delete/{id}(id=${customer.customer_id})}" class="btn btn-primary">-->
+<!--                                        <i class="material-icons">&#xE872;</i>-->
+<!--                                    </a>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--footer-->
+<footer th:replace="layout::footer">
+</footer>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head" th:title="Employee">
+    <title>creatCustomer</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:replace="layout::header">
+</header>
+<h3 style="text-align: center">Add new Customer</h3>
+<div class="container">
+    <form th:action="@{/customers/create}" th:object="${customer}" method="post">
+        <div class="row">
+            <div class="form-group col-lg-8">
+                <label for="id" class="col-form-label">Customer Id</label>
+                <input type="text" th:field="*{customer_id}" class="form-control"
+                       id="id" placeholder="Id Customer"/>
+                <div>
+                    <label style="color: red ;font-size: 11px; font-family: SansSerif" th:if="${#fields.hasErrors('customer_id')}" th:errors="*{customer_id}">Name Error</label>
+                </div>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="name" class="col-form-label">Name</label>
+                <input type="text" th:field="*{customerName}" class="form-control"
+                       id="name" placeholder="Full name"/>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="gender" class="col-form-label">Gender</label>
+                <select class="form-control" name="gender" id="gender" th:field="*{customerGender}">
+                    <option th:value="'0'" th:text="Male"></option>
+                    <option th:value="'1'" th:text="Female"></option>
+                    <option th:value="'2'" th:text="Bisexual"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="address" class="col-form-label">Address</label>
+                <input type="text" th:field="*{customerAddress}" class="form-control"
+                       id="address" placeholder="Address"/>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="birthday" class="col-form-label">Birth Day</label>
+                <input type="date" th:field="*{customerBirthday}" class="form-control"
+                       id="birthday" placeholder="Birth Day"/>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="email" class="col-form-label">Email</label>
+                <input type="text" th:field="*{customerEmail}" class="form-control"
+                       id="email" placeholder="Email"/>
+                <div>
+                    <label style="color: red ;font-size: 11px; font-family: SansSerif" th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}">Name Error</label>
+                </div>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="id-card" class="col-form-label">Id Card</label>
+                <input type="text" th:field="*{customerIdCard}" class="form-control"
+                       id="id-card" placeholder="Id Card"/>
+                <div>
+                    <label style="color: red ;font-size: 11px; font-family: SansSerif" th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}">Name Error</label>
+                </div>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="phone-customer" class="col-form-label">Phone Number</label>
+                <input type="text" th:field="*{customerPhone}" class="form-control"
+                       id="phone-customer" placeholder="Phone Number"/>
+                <div>
+                    <label style="color: red ;font-size: 11px; font-family: SansSerif" th:if="${#fields.hasErrors('customerPhone')}" th:errors="*{customerPhone}">Name Error</label>
+                </div>
+            </div>
+
+            <div class="form-group col-lg-8">
+                <label for="type-customer" class="col-form-label">Customer Type</label>
+                <select class="form-control" name="typeCustomer" id="type-customer" th:field="*{customerType}">
+                    <th:block th:each="row: ${customerTypes}">
+                        <option th:name="type-customer" th:value="${row.customerTypeId}" th:text="${row.customerTypeName}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="form-group col-lg-8">
+                <input type="submit" class="btn btn-primary" value=" Submit ">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<footer th:replace="layout::footer">
+</footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head" th:title="Employee">
+    <title>edit-customer</title>
+
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:replace="layout::header"></header>
+<div class="container my-5">
+    <h3> Edit Employee</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-lg-10">
+                <form action="#" th:action="@{/customers/edit}" th:object="${customer}" method="post">
+                    <div class="row">
+                        <input type="hidden" id="id" th:field="*{customer_id}">
+
+                        <div class="form-group col-md-8">
+                            <label for="name-customer" class="col-form-label">Name Customer</label>
+                            <input type="text" th:field="*{customerName}" class="form-control"
+                                   id="name-customer" placeholder="Name Customer" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="email" class="col-form-label">Email</label>
+                            <input type="text" th:field="*{customerEmail}" class="form-control"
+                                   id="email" placeholder="Email Customer" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="birth-day" class="col-form-label">Birth Day Customer</label>
+                            <input type="date" th:field="*{customerBirthday}" class="form-control"
+                                   id="birth-day" placeholder="Birth Day Customer" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="gender-customer" class="col-form-label">Gender</label>
+                            <select class="form-control" id="gender-customer" th:field="*{customerGender}">
+                                <option th:value="'0'" th:text="Male"></option>
+                                <option th:value="'1'" th:text="Female"></option>
+                                <option th:value="'2'" th:text="Bisexual"></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="address-customer" class="col-form-label">Address Customer</label>
+                            <input type="text" th:field="*{customerAddress}" class="form-control"
+                                   id="address-customer" placeholder="Address Customer" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="Id-Card" class="col-form-label">Id Card Customer</label>
+                            <input type="text" th:field="*{customerIdCard}" class="form-control"
+                                   id="Id-Card" placeholder="Id card Customer" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="phone" class="col-form-label"> Customer Phone</label>
+                            <input type="text" th:field="*{customerPhone}" class="form-control"
+                                   id="phone" placeholder="Phone Customer" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="type-customer" class="col-form-label">Type Customer</label>
+                            <select  name="typeCustomer"  class="form-control" id="type-customer" >
+                                <th:block th:each="row:${customerTypes}">
+                                    <option th:value="${row.customerTypeId}" th:text="${row.customerTypeName}"></option>
+                                </th:block>
+
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="layout::footer"></footer>
+</body>
+</html>

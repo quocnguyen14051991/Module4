@@ -1,5 +1,8 @@
 package com.quocnguyen.config;
 
+import com.quocnguyen.entity.UserEntity;
+import com.quocnguyen.repository.UserEntityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,25 +17,19 @@ import java.util.Optional;
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class JpaAuditingConfig {
     @Bean
-    public AuditorAware<String> auditorProvider() {
+    public AuditorAware<UserEntity> auditorProvider() {
+
         return new AuditorAwareImpl();
     }
 
-    public static class AuditorAwareImpl implements AuditorAware<String> {
+    public static class AuditorAwareImpl implements AuditorAware<UserEntity> {
+        @Autowired
+        private UserEntityRepository userEntityRepository;
 
         @Override
-        // spring scrurity chứa thong tin còn auditing lấy thông tin từ spring khi có 1 sự thay đổitrong database
-
-        public Optional<String> getCurrentAuditor() {
-            Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
-            if(authentication==null)
-            {
-                return null;
-            }
-            return Optional.ofNullable(authentication.getName());
-//            String usernam
-//            e=SecurityContextHolder.getContext().getAuthentication().getName();
-//            return Optional.empty();
+        public Optional<UserEntity> getCurrentAuditor() {
+            String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+            return Optional.ofNullable(userEntityRepository.findUserEntitiesByUserName(userName));
         }
     }
 }

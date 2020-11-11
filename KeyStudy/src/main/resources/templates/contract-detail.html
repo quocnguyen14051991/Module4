@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head" th:title="contract-detail">
+    <title>Contract-Detail</title>
+
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:replace="layout::header"></header>
+
+<div class="container">
+    <div th:switch="${contractDetails}" class="container-fullwidth">
+        <p class="my-5">
+            <a th:href="@{/contractsDetails/create}" class="btn btn-primary">
+                <i class="fas fa-user-plus ml-2"> Add New Contract Detail </i></a>
+        </p>
+        <div class="table-responsive-lg">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <h2 th:case="null">No record found !!</h2>
+                        <div class="col-lg-6"><h2>Contract <b>Details</b></h2></div>
+                        <div class="col-lg-6">
+
+                            <form th:action="@{/contractDetails}" method="get">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <input th:name="text" type="text" class="form-control" placeholder="search"
+                                               th:value="${keywordOld}">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="submit" value="Search">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th> Contract Detail Id</th>
+                        <th> Quantity </th>
+                        <th> Attach Service Id </th>
+                        <th> Contract Id </th>
+                        <th>Action</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="contractDetail,iState:${contractDetails}">
+                        <td th:text="${iState.index+1}"></td>
+                        <td th:text="${contractDetail.contractDetailId}"></td>
+                        <td th:text="${contractDetail.quantity}"></td>
+                        <td th:text="${contractDetail.contract.contractId}"></td>
+                        <td th:text="${contractDetail.attachService.attachServiceId}"></td>
+
+
+                        <td>
+                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                            <a th:href="@{/contractDetails/edit/{id}(id=${contractDetail.contractDetailId})}" class="edit" title="Edit"
+                               data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a th:href="@{/contractDetails/delete/{id}(id=${contractDetail.contractDetailId})}" class="delete"
+                               title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+<!--                <div class="clearfix">-->
+<!--                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>-->
+<!--                    <ul class="pagination">-->
+<!--                        <li class="page-item disabled"><a th:if="${contracts.hasPrevious()}"-->
+<!--                                                          th:href="@{/contracts(page=${contracts.number - 1},text=${keywordOld})}"><i-->
+<!--                                class="fa fa-angle-double-left"></i></a></li>-->
+
+<!--                        <th:block th:each="i: ${#numbers.sequence(0, contracts.totalPages - 1)}">-->
+<!--                            <li class="page-item"><a th:href="@{/contracts(page=${i},text=${keywordOld})}"-->
+<!--                                                     th:text="${i+1}" class="page-link"></a></li>-->
+<!--                        </th:block>-->
+
+<!--                        <li class="page-item"><a th:if="${contracts.hasNext()}"-->
+<!--                                                 th:href="@{/customers(page=${contracts.number + 1},text=${keywordOld})}"-->
+<!--                                                 class="page-link"><i class="fa fa-angle-double-right"></i></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout::footer">
+</footer>
+</body>
+</html>
